@@ -1,2 +1,6 @@
-#!/bin/sh
-xattr -p com.apple.metadata:kMDItemWhereFroms "$1" | sed -e 's/0D//g' -e 's/.*\(5F 10\)...//' -e 's/00.*//'| xxd -r -p | sed -e 's@ (.*@@g'
+#!/bin/bash
+for i in "$@" ; do
+	RV=`xattr -p com.apple.metadata:kMDItemWhereFroms "$i" | sed -e 's/0D//g' -e 's/.*\(5F 10\)...//' -e 's/00.*//'| xxd -r -p | sed -e 's@ (.*@@g'`
+	echo $i '-->' $RV
+done
+
